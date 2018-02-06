@@ -1,17 +1,17 @@
 $(document).ready(function() {
 
-// API request
+    // API request
     $.getJSON( 'https://api.github.com/repos/angular/angular/commits', function(data) {
         for (var i = 0; i< 25; i++) {
 
-// Retrieving data from Github API
+            // Retrieving data from Github API
             var sha = data[i].sha
             var avatar_url = data[i].author.avatar_url
             var login = data[i].author.login
             var name = data[i].commit.author.name
             var date = data[i].commit.author.date
 
-// Deriving difference between dates NOTE not ideal, would need a little more time to refactor and consider months
+            // Deriving difference between dates NOTE not ideal, would need a little more time to refactor and consider months
             var dateLimit = 10;
             var trimmedDate = date.substring(0, dateLimit)
             let today = new Date();
@@ -20,12 +20,12 @@ $(document).ready(function() {
             var timeDiff = Math.abs(commitDate.getTime() - todayDate.getTime());
             var diffDays = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
 
-// Limiting "commit message" to 50 characters for spacial reasons
+            // Limiting "commit message" to 50 characters for spacial reasons
             var message = data[i].commit.message
             var length = 50;
             var trimmedMessage = message.substring(0, length) + ". . .";
 
-// Appending HTML to ID in .html file
+            // Appending HTML to ID in .html file
             $("#repoList").append(
                 "<div class=repo-row>" +
                     "<img src='"+`${avatar_url}`+"'>" +
@@ -39,7 +39,7 @@ $(document).ready(function() {
         }
     })
 
-// On button ID click run a reload, run time is fine since only component on view is Repo List
+    // On button ID click run a reload, run time is fine since only component on view is Repo List
     $('#refreshRepoList').click(function(){
         location.reload();
     });
